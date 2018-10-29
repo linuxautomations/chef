@@ -16,18 +16,18 @@ yum install html2text -y &>>$LOG
 Split $LOG
 RPM=$(curl -s https://downloads.chef.io/chef-server/ | html2text | grep el7.x86_64.rpm$ | awk '{print $NF}')
 yum install $RPM -y &>>$LOG
-Stat "Installing Chef Server" 
+Stat $? "Installing Chef Server" 
 chef-server-ctl reconfigure &>>$LOG
-Stat "Configuring CHEF"
+Stat $? "Configuring CHEF"
 chef-server-ctl install chef-manage &>>$LOG 
-Stat "Installing Chef Dashboard"
+Stat $? "Installing Chef Dashboard"
 chef-server-ctl reconfigure --accept-license &>>$LOG
-Stat "Configuring Chef Dashboard"
+Stat $? "Configuring Chef Dashboard"
 chef-manage-ctl reconfigure --accept-license
-Stat "Finalyzing Chef Dashboard"
+Stat $? "Finalyzing Chef Dashboard"
 chef-server-ctl user-create admin Admin User admin@locahost.local 'PASSWORD' --filename /opt/admin.pem
-Stat "Created ADMIN User"
+Stat $? "Created ADMIN User"
 chef-server-ctl org-create sample 'Sample Org Pvt LTD' --association_user admin --filename /opt/sample.pem
-Stat "Created SAMPLE Organization"
+Stat $? "Created SAMPLE Organization"
 
 hint "You can hit the URL :: http://$(curl ifconfig.co)  and with Username/Password as admin/PASSWORD"
