@@ -23,7 +23,7 @@ chef-server-ctl install chef-manage &>>$LOG
 Stat $? "Installing Chef Dashboard"
 chef-server-ctl reconfigure --accept-license &>>$LOG
 Stat $? "Configuring Chef Dashboard"
-chef-manage-ctl reconfigure --accept-license
+chef-manage-ctl reconfigure --accept-license &>>$LOG
 Stat $? "Finalyzing Chef Dashboard"
 chef-server-ctl user-create admin Admin User admin@locahost.local 'PASSWORD' --filename /opt/admin.pem
 Stat $? "Created ADMIN User"
